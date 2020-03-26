@@ -2,6 +2,8 @@
   "name": "my-keep",
   "version": "0.1.0",
   "private": true,
+  "author": "Satyam Suman <mail_me@email.com> (http://satyamCorp.com)",
+  "license": "(MIT OR Apache-2.0)",
   "dependencies": {
     "clone-deep": "^4.0.1",
     "deep-equal": "^1.1.0",
@@ -58,6 +60,7 @@
   ],
   "devDependencies": {
     "eslint": "^6.8.0",
+    "eslint-loader": "^3.0.2",
     "git-format-staged": "^2.1.0",
     "husky": "^4.2.3",
     "prettier": "^2.0.2",
