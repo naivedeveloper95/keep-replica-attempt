@@ -25,9 +25,7 @@ export const getNotesFromDB = (currentUserId) => {
         });
         store.dispatch(getNotes(notes));
       },
-      (err) => {
-        console.log(err);
-      }
+      (err) => console.log(err)
     );
 };
 export const getTagsFromDB = (currentUserId) => {
@@ -42,9 +40,7 @@ export const getTagsFromDB = (currentUserId) => {
         });
         store.dispatch(getTags(tags));
       },
-      (err) => {
-        console.log(err);
-      }
+      (err) => console.log(err)
     );
 };
 export const getStructureFromDBv2 = (currentUserId) => {
@@ -105,9 +101,7 @@ export const getStructureFromDBv2 = (currentUserId) => {
           store.dispatch(getNoteStructure(structure));
         }
       },
-      (err) => {
-        console.log(err);
-      }
+      (err) => console.log(err)
     );
 };
 // }
@@ -117,12 +111,8 @@ export const updateNote = async (fields, id) => {
     .collection("notes")
     .doc(id)
     .update(fields)
-    .then(function () {
-      // console.log('Document successfully updated!');
-    })
-    .catch(function (error) {
-      console.error("Error updating document: ", error);
-    });
+    .then(() => console.log("Document successfully updated!"))
+    .catch((error) => console.error("Error updating document: ", error));
 };
 
 export const getStructureFromDB = (currentUserId) => {
@@ -131,16 +121,14 @@ export const getStructureFromDB = (currentUserId) => {
     .where("authorId", "==", currentUserId)
     .get()
     .then(
-      function (doc) {
+      (doc) => {
         let structure;
         doc.forEach((el) => {
           structure = { ...el.data(), structureId: el.id };
         });
         store.dispatch(getNoteStructure(structure));
       },
-      function (error) {
-        //...
-      }
+      (error) => console.error(new Error(error).message)
     );
 };
 
@@ -184,12 +172,8 @@ export const updateStructure = (newStructure) => {
   db.collection("structure")
     .doc(structureId)
     .update(newStructure)
-    .then(function () {
-      // console.log('Document successfully updated!');
-    })
-    .catch(function (error) {
-      console.error("Error updating document: ", error);
-    });
+    .then(() => console.log("Document successfully updated!"))
+    .catch((error) => console.error("Error updating document: ", error));
 };
 
 export const getNotesDB = () => db.collection("test1").get();
@@ -198,24 +182,15 @@ export const updatePositionOnNoteList = (id, column, row) =>
   db
     .collection("notes")
     .doc(id)
-    .update({
-      column,
-      row,
-    })
-    .then(function () {
-      // console.log('Document successfully updated!');
-    })
-    .catch(function (error) {
-      console.error("Error updating document: ", error);
-    });
+    .update({ column, row })
+    .then(() => console.log("Document successfully updated!"))
+    .catch((error) => console.error("Error updating document: ", error));
 
 export const addNoteToDB = (note) => {
   return db
     .collection("notes")
     .add({ ...note, authorId: auth.currentUser.uid })
-    .then(() => {
-      pushUidToStructure(note.uuid, note.column);
-    })
+    .then(() => pushUidToStructure(note.uuid, note.column))
     .catch((err) => console.error(err));
 };
 export const removeNoteFromDB = (note, column) => {
@@ -230,8 +205,6 @@ export const removeNoteFromDB = (note, column) => {
 export const addTagToDB = (tag) => {
   db.collection("tags")
     .add({ ...tag, authorId: auth.currentUser.uid })
-    .then(() => {
-      // console.warn('added tag');
-    })
+    .then(() => console.warn("added tag"))
     .catch((err) => console.error(err));
 };
