@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/naivedeveloper95/keep-replica-attempt.png?branch=master)](https://travis-ci.org/naivedeveloper95/keep-replica-attempt)
 
+![Node.js CI](https://github.com/naivedeveloper95/keep-replica-attempt/workflows/Node.js%20CI/badge.svg)
+
 # keep-replica-attempt
 An attempt to create a replica of google keep
 
