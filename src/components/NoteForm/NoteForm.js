@@ -1,28 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
-import uuid from 'uuid';
+import React, { useState, useEffect, useRef } from "react";
+import uuid from "uuid";
 import {
   FormContainer,
   FormGroup,
   TitleField,
   NoteField,
-  IconButton
-} from './NoteFormElements';
-import FormNoteList from '../FormNoteList/FormNoteList';
-import TagList from '../TagList/TagList';
-import NotesFormFooter from './NotesFormFooter';
-import TextareaAutosize from 'react-autosize-textarea';
-import { connect } from 'react-redux';
+  IconButton,
+} from "./NoteFormElements";
+import FormNoteList from "../FormNoteList/FormNoteList";
+import TagList from "../TagList/TagList";
+import NotesFormFooter from "./NotesFormFooter";
+import TextareaAutosize from "react-autosize-textarea";
+import { connect } from "react-redux";
 import {
   addNote,
   updateStructureLocally,
-  clearEditNote
-} from '../../redux/notes';
-import { updateNote, updateStructure } from '../../firebase/firebaseAPI';
+  clearEditNote,
+} from "../../redux/notes";
+import { updateNote, updateStructure } from "../../firebase/firebaseAPI";
 import {
   getListBasedOnLineTextBreak,
   getSingleNoteBasedOnList,
-  checkIfTargetIsForm
-} from '../../utils';
+  checkIfTargetIsForm,
+} from "../../utils";
 
 const hasCheckListItems = (checkList) => {
   if (checkList) {
@@ -37,11 +37,11 @@ function NoteForm({
   editMode = false,
   editedNote,
   clearEditNote,
-  updateStructureLocally
+  updateStructureLocally,
 }) {
   const [editedNoteCopy] = useState({ ...editedNote });
-  const [title, setTitle] = useState(editedNote.title ? editedNote.title : '');
-  const [note, setNote] = useState(editedNote.note ? editedNote.note : '');
+  const [title, setTitle] = useState(editedNote.title ? editedNote.title : "");
+  const [note, setNote] = useState(editedNote.note ? editedNote.note : "");
   const [checkList, setCheckList] = useState(
     editedNote.checkList ? editedNote.checkList : {}
   );
@@ -50,7 +50,7 @@ function NoteForm({
   );
   const [tags, setTags] = useState(editedNote.tags ? editedNote.tags : []);
   const [bgColor, setBgColor] = useState(
-    editedNote.bgColor ? editedNote.bgColor : 'rgba(255,255,255,0.8)'
+    editedNote.bgColor ? editedNote.bgColor : "rgba(255,255,255,0.8)"
   );
   const [isInputOpen, setInputOpen] = useState(editMode);
   // here has a problem with converting undefined or null to object keys
@@ -61,7 +61,7 @@ function NoteForm({
   const titleInput = useRef();
 
   const toggleNoteEditorMode = () => {
-    let newNote = '';
+    let newNote = "";
     let newNoteCheckList = {};
 
     if (noteEditorMode) {
@@ -75,12 +75,12 @@ function NoteForm({
   };
 
   const resetForm = () => {
-    setTitle('');
-    setNote('');
+    setTitle("");
+    setNote("");
     setTags([]);
     setCheckList({});
     setIsPinned(false);
-    setBgColor('rgba(255,255,255,0.8)');
+    setBgColor("rgba(255,255,255,0.8)");
     setNoteEditorMode(false);
     setInputOpen(false);
     if (editMode && clearEditNote) {
@@ -89,7 +89,7 @@ function NoteForm({
   };
 
   const validateFields = () => {
-    return (note + title).trim() !== '' || Object.values(checkList).length > 0;
+    return (note + title).trim() !== "" || Object.values(checkList).length > 0;
   };
   const checkIfNoteHasChanged = (changedFields) => {
     for (let prop in changedFields) {
@@ -124,12 +124,12 @@ function NoteForm({
           checkList,
           isPinned,
           tags,
-          bgColor
+          bgColor,
         };
         if (checkIfNoteHasChanged(fields)) {
           const changedFields = getChangedFields(fields);
           updateNote(changedFields, editedNote.id).then(() => {
-            if (changedFields.hasOwnProperty('isPinned')) {
+            if (changedFields.hasOwnProperty("isPinned")) {
               let noteStructure;
               if (!changedFields.isPinned) {
                 noteStructure = { ...structure };
@@ -138,7 +138,7 @@ function NoteForm({
                     prop
                   ].tasksIds.filter((taskId) => taskId !== editedNote.uuid);
                 }
-                noteStructure['column-1'].tasksIds.push(editedNote.uuid);
+                noteStructure["column-1"].tasksIds.push(editedNote.uuid);
               } else {
                 noteStructure = { ...structure };
 
@@ -147,7 +147,7 @@ function NoteForm({
                     prop
                   ].tasksIds.filter((taskId) => taskId !== editedNote.uuid);
                 }
-                noteStructure['column-5'].tasksIds.push(editedNote.uuid);
+                noteStructure["column-5"].tasksIds.push(editedNote.uuid);
               }
               updateStructure(noteStructure);
               updateStructureLocally(noteStructure);
@@ -164,7 +164,7 @@ function NoteForm({
           tags,
           bgColor,
           column: isPinned ? 5 : 1, // These numbers are starting indexes of columns in note lists
-          uuid: newUuid
+          uuid: newUuid,
         };
         addNote(newNote);
       }
@@ -175,23 +175,23 @@ function NoteForm({
 
   const deleteListItem = (e) => {
     const newCheckListItems = {
-      ...checkList
+      ...checkList,
     };
     delete newCheckListItems[e.target.name];
     setCheckList(newCheckListItems);
   };
 
   useEffect(() => {
-    document.body.addEventListener('mousedown', handleBodyClick);
+    document.body.addEventListener("mousedown", handleBodyClick);
 
     return () => {
-      document.body.removeEventListener('mousedown', handleBodyClick);
+      document.body.removeEventListener("mousedown", handleBodyClick);
     };
   }, [editMode, handleBodyClick, isInputOpen, tags]);
 
   return (
     <FormContainer bgColor={bgColor} className="note-form">
-      {' '}
+      {" "}
       {(isInputOpen || editMode) && (
         <FormGroup>
           <TitleField
@@ -202,13 +202,13 @@ function NoteForm({
             placeholder="Tytuł"
           />
           <IconButton
-            className={isPinned ? 'icon-pin' : 'icon-pin-outline'}
+            className={isPinned ? "icon-pin" : "icon-pin-outline"}
             onClick={() => setIsPinned(!isPinned)}
-          />{' '}
+          />{" "}
         </FormGroup>
-      )}{' '}
+      )}{" "}
       <FormGroup>
-        {' '}
+        {" "}
         {noteEditorMode ? (
           <FormNoteList
             editMode={editMode}
@@ -220,7 +220,7 @@ function NoteForm({
           <TextareaAutosize
             style={{
               ...NoteField,
-              resize: 'none'
+              resize: "none",
             }}
             name="note"
             value={note}
@@ -228,7 +228,7 @@ function NoteForm({
             onClick={() => setInputOpen(true)}
             placeholder="Utwórz notatkę..."
           />
-        )}{' '}
+        )}{" "}
         {!isInputOpen && !editMode && (
           <IconButton
             className="far fa-check-square fa-lg"
@@ -237,8 +237,8 @@ function NoteForm({
               setInputOpen(true);
             }}
           />
-        )}{' '}
-      </FormGroup>{' '}
+        )}{" "}
+      </FormGroup>{" "}
       <TagList tags={tags} setTags={setTags} />
       {(isInputOpen || editMode) && (
         <NotesFormFooter
@@ -250,23 +250,23 @@ function NoteForm({
           noteEditorMode={noteEditorMode}
           handleToggleClick={toggleNoteEditorMode}
         />
-      )}{' '}
+      )}{" "}
     </FormContainer>
   );
 }
 const mapStateToProps = (state) => {
   return {
     structure: {
-      ...state.notes.noteStructure
+      ...state.notes.noteStructure,
     },
-    editedNote: { ...state.notes.editedNote }
+    editedNote: { ...state.notes.editedNote },
   };
 };
 
 const mapDispatchToProps = {
   addNote,
   updateStructureLocally,
-  clearEditNote
+  clearEditNote,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteForm);

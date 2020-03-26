@@ -1,35 +1,35 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Draggable } from 'react-beautiful-dnd';
-import { IconButton } from '../NoteForm/NoteFormElements';
-import NotesFormFooter from '../NoteForm/NotesFormFooter';
+import React from "react";
+import { connect } from "react-redux";
+import { Draggable } from "react-beautiful-dnd";
+import { IconButton } from "../NoteForm/NoteFormElements";
+import NotesFormFooter from "../NoteForm/NotesFormFooter";
 import {
   updateNote,
   removeNoteFromDB,
-  updateStructure
-} from '../../firebase/firebaseAPI';
+  updateStructure,
+} from "../../firebase/firebaseAPI";
 import {
   updateStructureLocally,
   deleteNote,
-  editNote
-} from '../../redux/notes';
-import TagList from '../TagList/TagList';
-import cloneDeep from 'clone-deep';
-import Checkbox from './Checkbox';
+  editNote,
+} from "../../redux/notes";
+import TagList from "../TagList/TagList";
+import cloneDeep from "clone-deep";
+import Checkbox from "./Checkbox";
 import {
   NoteContainer,
   Title,
   NoteContent,
   TextNote,
-  CheckListItem
-} from './notes-list-elements';
-import uuid from 'uuid';
+  CheckListItem,
+} from "./notes-list-elements";
+import uuid from "uuid";
 
 class Task extends React.Component {
   state = {
     isHovered: false,
     isContextMenuOpen: false,
-    editMode: false
+    editMode: false,
   };
 
   handleMouseOver = () => {
@@ -46,7 +46,7 @@ class Task extends React.Component {
       column,
       task,
       deleteNote,
-      updateStructureLocally
+      updateStructureLocally,
     } = this.props;
     const newStructure = cloneDeep(noteStructure);
     newStructure[column].tasksIds = newStructure[column].tasksIds.filter(
@@ -60,7 +60,7 @@ class Task extends React.Component {
 
   handleCheck = (listItem) => {
     const {
-      task: { checkList, id }
+      task: { checkList, id },
     } = this.props;
     const newCheckList = { ...checkList };
     newCheckList[listItem.uid].status = !newCheckList[listItem.uid].status;
@@ -76,14 +76,14 @@ class Task extends React.Component {
         newCheckList[newUid] = {
           uid: newUid,
           status: false,
-          listItem: phrase
+          listItem: phrase,
         };
       });
-      updateNote({ checkList: newCheckList, note: '' }, task.id);
+      updateNote({ checkList: newCheckList, note: "" }, task.id);
     } else {
       const newNote = Object.values(task.checkList)
         .map((note) => note.listItem)
-        .join('\n');
+        .join("\n");
       updateNote({ checkList: {}, note: newNote }, task.id);
     }
   };
@@ -97,24 +97,24 @@ class Task extends React.Component {
       if (!this.props.task.isPinned) {
         noteStructure = { ...this.props.noteStructure };
         for (let prop in noteStructure) {
-          if (noteStructure[prop].hasOwnProperty('tasksIds')) {
+          if (noteStructure[prop].hasOwnProperty("tasksIds")) {
             noteStructure[prop].tasksIds = noteStructure[prop].tasksIds.filter(
               (taskId) => taskId !== this.props.task.uuid
             );
           }
         }
-        noteStructure['column-1'].tasksIds.push(this.props.task.uuid);
+        noteStructure["column-1"].tasksIds.push(this.props.task.uuid);
       } else {
         noteStructure = { ...this.props.noteStructure };
 
         for (let prop in noteStructure) {
-          if (noteStructure[prop].hasOwnProperty('tasksIds')) {
+          if (noteStructure[prop].hasOwnProperty("tasksIds")) {
             noteStructure[prop].tasksIds = noteStructure[prop].tasksIds.filter(
               (taskId) => taskId !== this.props.task.uuid
             );
           }
         }
-        noteStructure['column-5'].tasksIds.push(this.props.task.uuid);
+        noteStructure["column-5"].tasksIds.push(this.props.task.uuid);
       }
       updateStructure(noteStructure);
       this.props.updateStructureLocally(noteStructure);
@@ -145,7 +145,7 @@ class Task extends React.Component {
   render() {
     const {
       task: { title, note, bgColor, tags, checkList, isPinned, id },
-      index
+      index,
     } = this.props;
 
     const { isHovered } = this.state;
@@ -161,7 +161,7 @@ class Task extends React.Component {
                 <Checkbox handleCheck={this.handleCheck} listItem={listItem} />
                 <span
                   style={{
-                    textDecoration: listItem.status ? 'line-through' : ''
+                    textDecoration: listItem.status ? "line-through" : "",
                   }}
                 >
                   {listItem.listItem}
@@ -172,12 +172,12 @@ class Task extends React.Component {
             if (!listItem.status) {
               return [
                 [...listsToDisplay[0], itemToDisplay],
-                [...listsToDisplay[1]]
+                [...listsToDisplay[1]],
               ];
             } else {
               return [
                 [...listsToDisplay[0]],
-                [...listsToDisplay[1], itemToDisplay]
+                [...listsToDisplay[1], itemToDisplay],
               ];
             }
           },
@@ -191,11 +191,11 @@ class Task extends React.Component {
         <p
           key={Math.random()}
           style={{
-            margin: '5px 0',
-            borderTop: '1px solid rgb(205,205,205)'
+            margin: "5px 0",
+            borderTop: "1px solid rgb(205,205,205)",
           }}
         />,
-        ...content[1]
+        ...content[1],
       ];
     }
 
@@ -221,28 +221,28 @@ class Task extends React.Component {
               {...provided.dragHandleProps}
             >
               <NoteContent>
-                {title !== '' && (
+                {title !== "" && (
                   <Title>
                     {title}
                     <IconButton
                       style={{
-                        float: 'right',
-                        marginRight: '0',
-                        opacity: isHovered ? 1 : 0
+                        float: "right",
+                        marginRight: "0",
+                        opacity: isHovered ? 1 : 0,
                       }}
-                      className={isPinned ? 'icon-pin' : 'icon-pin-outline'}
+                      className={isPinned ? "icon-pin" : "icon-pin-outline"}
                       onClick={this.handlePinClick}
                     />
                   </Title>
                 )}
-                {title === '' && (
+                {title === "" && (
                   <IconButton
                     style={{
-                      float: 'right',
-                      marginRight: '0',
-                      opacity: isHovered ? 1 : 0
+                      float: "right",
+                      marginRight: "0",
+                      opacity: isHovered ? 1 : 0,
                     }}
-                    className={isPinned ? 'icon-pin' : 'icon-pin-outline'}
+                    className={isPinned ? "icon-pin" : "icon-pin-outline"}
                     onClick={this.handlePinClick}
                   />
                 )}
@@ -264,15 +264,15 @@ class Task extends React.Component {
                 setBgColor={(color) => {
                   updateNote({ bgColor: color }, id);
                 }}
-                noteEditorMode={note.trim() === ''}
+                noteEditorMode={note.trim() === ""}
                 handleToggleClick={this.handleToggleClick}
                 closeOption={false}
               >
                 <IconButton
                   style={{
-                    marginLeft: '12px'
+                    marginLeft: "12px",
                   }}
-                  className={'fas fa-trash-alt'}
+                  className={"fas fa-trash-alt"}
                   onClick={this.handleDeleteClick}
                 />
               </NotesFormFooter>
@@ -285,12 +285,12 @@ class Task extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    noteStructure: state.notes.noteStructure
+    noteStructure: state.notes.noteStructure,
   };
 };
 
 export default connect(mapStateToProps, {
   updateStructureLocally,
   deleteNote,
-  editNote
+  editNote,
 })(Task);

@@ -1,13 +1,13 @@
-import * as firebase from 'firebase/app';
-import { app } from './firebaseConfig';
-import 'firebase/auth';
-import { logIn, logOut } from '../redux/auth';
-import { store } from '../redux/storeConfig';
+import * as firebase from "firebase/app";
+import { app } from "./firebaseConfig";
+import "firebase/auth";
+import { logIn, logOut } from "../redux/auth";
+import { store } from "../redux/storeConfig";
 import {
   getStructureFromDBv2,
   getTagsFromDB,
-  getNotesFromDB
-} from './firebaseAPI';
+  getNotesFromDB,
+} from "./firebaseAPI";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
@@ -54,11 +54,11 @@ export const signInWithFacebook = () => {
     .catch((error) => {
       const errorCode = error.code;
       const credential = error.credential;
-      if (errorCode === 'auth/account-exists-with-different-credential') {
+      if (errorCode === "auth/account-exists-with-different-credential") {
         const email = error.email;
         auth.fetchSignInMethodsForEmail(email).then((methods) => {
-          if (methods[0] === 'password') {
-            const newPassword = prompt('Enter password: ');
+          if (methods[0] === "password") {
+            const newPassword = prompt("Enter password: ");
             auth
               .signInWithEmailAndPassword(email, newPassword)
               .then(({ user }) => {
