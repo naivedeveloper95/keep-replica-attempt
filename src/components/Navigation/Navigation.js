@@ -103,7 +103,7 @@ function MobileNav({ isLoggedIn }) {
 function Navigation({ isLoggedIn }) {
   return (
     <Nav>
-      <Title>Google Keep Clone</Title>
+      <Title>My Keep</Title>
       {window.innerWidth <= 720 ? (
         <MobileNav isLoggedIn={isLoggedIn} />
       ) : (

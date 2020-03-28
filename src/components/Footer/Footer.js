@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const FooterContainer = styled.footer`
   height: 8vh;
@@ -16,7 +16,7 @@ const FooterContainer = styled.footer`
 `;
 
 function Footer() {
-  return <FooterContainer>Google Keep Clone</FooterContainer>;
+  return <FooterContainer>My Keep</FooterContainer>;
 }
 
 export default Footer;
