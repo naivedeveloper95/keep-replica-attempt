@@ -1,20 +1,20 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
-import { DragDropContext } from 'react-beautiful-dnd';
-import Column from './Column';
-import { updateStructureLocally } from '../../redux/notes';
-import { connect } from 'react-redux';
+import React from "react";
+import { Redirect } from "react-router-dom";
+import { DragDropContext } from "react-beautiful-dnd";
+import Column from "./Column";
+import { updateStructureLocally } from "../../redux/notes";
+import { connect } from "react-redux";
 import {
   updateStructure,
-  getStructureFromDB
-} from '../../firebase/firebaseAPI';
-import equal from 'deep-equal';
-import { Container } from './notes-list-elements';
-import PropTypes from 'prop-types';
-import Loader from 'react-loader-spinner';
+  getStructureFromDB,
+} from "../../firebase/firebaseAPI";
+import equal from "deep-equal";
+import { Container } from "./notes-list-elements";
+import PropTypes from "prop-types";
+import Loader from "react-loader-spinner";
 
-const NOT_PINNED_COLUMNS = ['column-1', 'column-2', 'column-3', 'column-4'];
-const PINNED_COLUMNS = ['column-5', 'column-6', 'column-7', 'column-8'];
+const NOT_PINNED_COLUMNS = ["column-1", "column-2", "column-3", "column-4"];
+const PINNED_COLUMNS = ["column-5", "column-6", "column-7", "column-8"];
 
 class NotesList extends React.Component {
   componentDidMount() {
@@ -52,12 +52,12 @@ class NotesList extends React.Component {
 
       const newColumn = {
         ...start,
-        tasksIds: newTasksIds
+        tasksIds: newTasksIds,
       };
 
       const newStructure = {
         ...this.props.structure,
-        [newColumn.id]: newColumn
+        [newColumn.id]: newColumn,
       };
       this.props.updateStructureLocally(newStructure);
       return;
@@ -67,20 +67,20 @@ class NotesList extends React.Component {
     startTasksIds.splice(source.index, 1);
     const newStart = {
       ...start,
-      tasksIds: startTasksIds
+      tasksIds: startTasksIds,
     };
 
     const finishTasksIds = Array.from(finish.tasksIds);
     finishTasksIds.splice(destination.index, 0, draggableId);
     const newFinish = {
       ...finish,
-      tasksIds: finishTasksIds
+      tasksIds: finishTasksIds,
     };
 
     const newStructure = {
       ...this.props.structure,
       [newStart.id]: newStart,
-      [newFinish.id]: newFinish
+      [newFinish.id]: newFinish,
     };
 
     this.props.updateStructureLocally(newStructure);
@@ -91,7 +91,7 @@ class NotesList extends React.Component {
       return (
         <Redirect
           to={{
-            pathname: '/'
+            pathname: "/notes",
           }}
         />
       );
@@ -106,10 +106,10 @@ class NotesList extends React.Component {
       return (
         <div
           style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%,-50%)'
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
           }}
         >
           <Loader
@@ -127,18 +127,31 @@ class NotesList extends React.Component {
         <DragDropContext onDragEnd={this.onDragEndRedux}>
           <Container
             style={{
-              margin: '0 auto',
-              paddingTop: '10px'
+              margin: "0 auto",
+              paddingTop: "10px",
             }}
           >
-            {columns.map((columnId) => {
-              const column = structure[columnId];
-              const tasks = column.tasksIds.map(
-                (taskId) =>
-                  Object.values(notes).filter((note) => note.uuid === taskId)[0]
-              );
-              return <Column key={column.id} column={column} tasks={tasks} />;
-            })}
+            {columns &&
+              columns.map((columnId) => {
+                const column = structure[columnId];
+                if (column && column !== undefined) {
+                  const tasks =
+                    column !== undefined &&
+                    column.tasksIds !== undefined &&
+                    column.tasksIds.length > 0 &&
+                    column.tasksIds.map(
+                      (taskId) =>
+                        Object.values(notes).filter(
+                          (note) => note.uuid === taskId
+                        )[0]
+                    );
+                  return (
+                    <Column key={column.id} column={column} tasks={tasks} />
+                  );
+                } else {
+                  return null;
+                }
+              })}
           </Container>
         </DragDropContext>
       </>
@@ -149,7 +162,7 @@ class NotesList extends React.Component {
 NotesList.propTypes = {
   isPinnedList: PropTypes.bool.isRequired,
   notes: PropTypes.object,
-  structure: PropTypes.object
+  structure: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
@@ -157,7 +170,7 @@ const mapStateToProps = (state) => {
     notes: { ...state.notes.notes },
     structure: { ...state.notes.noteStructure },
     isLoggedIn: state.auth.isLoggedIn,
-    userId: state.auth.user && state.auth.user.uid ? state.auth.user.uid : ''
+    userId: state.auth.user && state.auth.user.uid ? state.auth.user.uid : "",
   };
 };
 

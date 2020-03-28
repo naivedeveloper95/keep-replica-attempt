@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {
   DesktopLinksGroup,
   NavElement,
-  AuthButton,
+  // AuthButton,
   Title,
   Nav,
   Hamburger,
@@ -18,11 +18,13 @@ import { signOut } from "../../firebase/firebaseAuth";
 function DesktopNav({ isLoggedIn }) {
   return (
     <DesktopLinksGroup>
-      <NavElement>
-        <Link style={{ textDecoration: "none", color: "#fff" }} to="/">
-          Home
-        </Link>
-      </NavElement>
+      {!isLoggedIn && (
+        <NavElement>
+          <Link style={{ textDecoration: "none", color: "#fff" }} to="/">
+            Home
+          </Link>
+        </NavElement>
+      )}
       {isLoggedIn && (
         <NavElement>
           <Link style={{ textDecoration: "none", color: "#fff" }} to="/notes">
@@ -37,7 +39,13 @@ function DesktopNav({ isLoggedIn }) {
       </NavElement>
       {isLoggedIn && (
         <NavElement>
-          <AuthButton onClick={signOut}>Log out</AuthButton>
+          <Link
+            onClick={signOut}
+            style={{ textDecoration: "none", color: "#fff" }}
+            to="/"
+          >
+            Log out
+          </Link>
         </NavElement>
       )}
     </DesktopLinksGroup>
@@ -51,15 +59,17 @@ function MobileNav({ isLoggedIn }) {
         <Icon className="fas fa-bars fa-2x" />
       </Hamburger>
       <MobileLinksGroup isOpen={isMobileNavOpen}>
-        <NavMobileElement>
-          <Link
-            onClick={() => toggleMobileNav(!isMobileNavOpen)}
-            style={{ textDecoration: "none", color: "#fff" }}
-            to="/"
-          >
-            <Icon className="fas fa-home" /> Home
-          </Link>
-        </NavMobileElement>
+        {!isLoggedIn && (
+          <NavMobileElement>
+            <Link
+              onClick={() => toggleMobileNav(!isMobileNavOpen)}
+              style={{ textDecoration: "none", color: "#fff" }}
+              to="/notes"
+            >
+              <Icon className="fas fa-home" /> Home
+            </Link>
+          </NavMobileElement>
+        )}
         {isLoggedIn && (
           <NavMobileElement>
             <Link
@@ -82,14 +92,16 @@ function MobileNav({ isLoggedIn }) {
         </NavMobileElement>
         {isLoggedIn && (
           <NavMobileElement>
-            <AuthButton
+            <Link
               onClick={() => {
                 signOut();
                 toggleMobileNav(!isMobileNavOpen);
               }}
+              style={{ textDecoration: "none", color: "#fff" }}
+              to="/"
             >
               <Icon className="fas fa-sign-out-alt" /> Log out
-            </AuthButton>
+            </Link>
           </NavMobileElement>
         )}
         <CloseNavBtn onClick={() => toggleMobileNav(!isMobileNavOpen)}>
@@ -103,7 +115,7 @@ function MobileNav({ isLoggedIn }) {
 function Navigation({ isLoggedIn }) {
   return (
     <Nav>
-      <Title>My Keep</Title>
+      <Title>Keep</Title>
       {window.innerWidth <= 720 ? (
         <MobileNav isLoggedIn={isLoggedIn} />
       ) : (

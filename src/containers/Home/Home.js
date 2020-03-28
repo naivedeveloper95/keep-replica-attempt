@@ -1,11 +1,12 @@
-import React from 'react';
-import AuthForm from '../../components/AuthForm/AuthForm';
-import styled from 'styled-components';
+import React from "react";
+import AuthForm from "../../components/AuthForm/AuthForm";
+import styled from "styled-components";
 
 const HomeContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #ffffff;
   min-height: 84vh;
   box-sizing: border-box;
   @media (max-width: 959px) {

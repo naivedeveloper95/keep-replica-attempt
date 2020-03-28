@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   IconButton,
   Icon,
@@ -6,20 +6,20 @@ import {
   ListItem,
   ListItemForm,
   // Checkbox,
-  ListItemFormInput
-} from '../NoteForm/NoteFormElements';
-import Checkbox from '../NotesList/Checkbox';
-import uuid from 'uuid';
+  ListItemFormInput,
+} from "../NoteForm/NoteFormElements";
+import Checkbox from "../NotesList/Checkbox";
+import uuid from "uuid";
 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 function FormNoteList({
   checkList,
   setCheckList,
   deleteListItem,
-  editMode = false
+  editMode = false,
 }) {
-  const [listItem, setListItem] = useState('');
+  const [listItem, setListItem] = useState("");
   const handleSubmit = (e) => {
     const uid = uuid();
     const newCheckList = {
@@ -27,24 +27,24 @@ function FormNoteList({
       [uid]: {
         listItem: e.target.value,
         status: false,
-        uid
-      }
+        uid,
+      },
     };
     setCheckList(newCheckList);
-    setListItem('');
+    setListItem("");
   };
   const handleChange = (e, item) => {
     setCheckList({
       ...checkList,
       [item.uid]: {
         ...checkList[item.uid],
-        listItem: e.target.value
-      }
+        listItem: e.target.value,
+      },
     });
   };
   const handleKeyUp = (e) => {
-    if (e.key === 'Enter') {
-      document.getElementById('listItemFormInput').focus();
+    if (e.key === "Enter") {
+      document.getElementById("listItemFormInput").focus();
     }
   };
   //TODO: refactor result function
@@ -66,19 +66,19 @@ function FormNoteList({
         if (index === destinationIndex) {
           newCheckList[movedItemId] = {
             uid: movedItemId,
-            listItem: checkList[movedItemId].listItem
+            listItem: checkList[movedItemId].listItem,
           };
         }
         newCheckList[listItem.uid] = {
           uid: listItem.uid,
-          listItem: listItem.listItem
+          listItem: listItem.listItem,
         };
         return newCheckList;
       }, {});
     if (Object.values(newCheckList).length !== destinationIndex + 1) {
       newCheckList[movedItemId] = {
         uid: movedItemId,
-        listItem: checkList[movedItemId].listItem
+        listItem: checkList[movedItemId].listItem,
       };
     }
     setCheckList(newCheckList);
@@ -111,8 +111,8 @@ function FormNoteList({
                             ...checkList,
                             [item.uid]: {
                               ...checkList[item.uid],
-                              status: !checkList[item.uid].status
-                            }
+                              status: !checkList[item.uid].status,
+                            },
                           });
                         }}
                         listItem={checkList[item.uid]}
@@ -141,7 +141,7 @@ function FormNoteList({
                 value={listItem}
                 onChange={handleSubmit}
                 autoFocus
-                placeholder="Element listy"
+                placeholder="List item"
               />
             </ListItemForm>
           </ListContainer>

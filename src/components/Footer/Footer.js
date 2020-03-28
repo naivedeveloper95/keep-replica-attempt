@@ -2,21 +2,22 @@ import React from "react";
 import styled from "styled-components";
 
 const FooterContainer = styled.footer`
-  height: 8vh;
+  height: 0vh;
   text-align: center;
-  background: #f4b400;
+  background: #ffffff;
   line-height: 70px;
-  color: #fff;
+  color: #ffffff;
   font-size: 20px;
   letter-spacing: 0.4px;
   @media (max-width: 959px) {
     height: 50px;
     line-height: 50px;
+    background: #ffffff;
   }
 `;
 
 function Footer() {
-  return <FooterContainer>My Keep</FooterContainer>;
+  return <FooterContainer></FooterContainer>;
 }
 
 export default Footer;

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "author": "Satyam Suman <mail_me@email.com> (http://satyamCorp.com)",
-  "license": "(MIT OR Apache-2.0)",
+  "license": "MIT",
   "dependencies": {
     "clone-deep": "^4.0.1",
     "deep-equal": "^1.1.0",
@@ -22,6 +22,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.4.1",
     "react-scroll-up-button": "^1.6.4",
+    "react-toastify": "^5.5.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.3.1",

@@ -1,75 +1,80 @@
-import React, { useState } from 'react';
-import { Formik, Form } from 'formik';
-import { connect } from 'react-redux';
-import * as Yup from 'yup';
+import React, { useState } from "react";
+import { Formik, Form } from "formik";
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import * as Yup from "yup";
 import {
   InputField,
   SubmitButton,
   FormHeader,
   FormContainer,
-  Label,
-  InputErrMsg
-} from './common-elements';
-import { Card } from '../../UI/theme';
-import { createUserWithEmailAndPassword } from '../../firebase/firebaseAuth';
-import { withRouter } from 'react-router-dom';
+  // Label,
+  InputErrMsg,
+} from "./common-elements";
+import { Card } from "../../UI/theme";
+import { createUserWithEmailAndPassword } from "../../firebase/firebaseAuth";
+import { withRouter } from "react-router-dom";
 
 function RegisterForm(props) {
   const [signUpState] = useState({
-    email: '',
-    password: '',
-    name: '',
-    repeatedPassword: ''
+    email: "",
+    password: "",
+    name: "",
+    repeatedPassword: "",
   });
 
   return (
     <Card>
-      <FormHeader>Register by email</FormHeader>
+      <FormHeader>Sign up!</FormHeader>
       <Formik
         initialValues={{ ...signUpState }}
         validationSchema={Yup.object().shape({
           name: Yup.string()
-            .min(2, 'Name is to short!')
-            .max(10, 'Name is to long!')
-            .required('Name is required!'),
+            .min(2, "Name is too short!")
+            .max(30, "Please choose a shorter name.")
+            .required("Name is required!"),
           email: Yup.string()
-            .email('Invalid email')
-            .required('Email is required!'),
+            .email("Invalid email")
+            .required("Email is required!"),
           password: Yup.string()
-            .min(2, 'Password is to short!')
-            .max(10, 'Password is to long!')
-            .required('Password is required!'),
+            .min(2, "Password is to short!")
+            .max(10, "Password is to long!")
+            .required("Password is required!"),
           repeatedPassword: Yup.string()
-            .oneOf([Yup.ref('password'), null], 'Passwords must match')
-            .required('Password is required!')
+            .oneOf([Yup.ref("password"), null], "Passwords must match")
+            .required("Password is required!"),
         })}
         onSubmit={({ email, password }, { setErrors, resetForm }) => {
           createUserWithEmailAndPassword(email, password)
             .then(() => {
               resetForm();
-              //TODO SHOW TOAST
+              toast.success("Registration Successfull!", {
+                autoClose: 5000,
+                position: toast.POSITION.BOTTOM_CENTER,
+              });
               setTimeout(() => {
-                props.history.push('/notes');
+                props.history.push("/notes");
               }, 500);
             })
             .catch((error) => {
               //TODO check if there is possible to get multiply of errors message
               const errorCode = error.code;
-              if (errorCode === 'auth/weak-password') {
-                setErrors({ password: 'Password is to weak!' });
-              } else if (errorCode === 'auth/invalid-email') {
-                setErrors({ email: 'Invalid Email' });
-              } else if (errorCode === 'auth/email-already-in-use') {
-                setErrors({ email: 'Email already in use!' });
-              } else if (errorCode === 'auth/operation-not-allowed') {
+              if (errorCode === "auth/weak-password") {
+                setErrors({ password: "Password is to weak!" });
+              } else if (errorCode === "auth/invalid-email") {
+                setErrors({ email: "Invalid Email" });
+              } else if (errorCode === "auth/email-already-in-use") {
+                setErrors({ email: "Email already in use!" });
+              } else if (errorCode === "auth/operation-not-allowed") {
                 setErrors({
-                  email: 'Invalid Email',
-                  password: 'Invalid password'
+                  email: "Invalid Email",
+                  password: "Invalid password",
                 });
               } else {
                 setErrors({
-                  email: 'Invalid Email',
-                  password: 'Invalid password'
+                  email: "Invalid Email",
+                  password: "Invalid password",
                 });
               }
             });
@@ -77,7 +82,6 @@ function RegisterForm(props) {
         render={({ handleChange, values, errors, touched, handleBlur }) => (
           <Form>
             <FormContainer>
-              <Label htmlFor="name">Name</Label>
               <InputField
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -90,7 +94,6 @@ function RegisterForm(props) {
               <InputErrMsg isInvalid={errors.name && touched.name}>
                 {errors.name}
               </InputErrMsg>
-              <Label htmlFor="email">Email</Label>
               <InputField
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -103,7 +106,6 @@ function RegisterForm(props) {
               <InputErrMsg isInvalid={errors.email && touched.email}>
                 {errors.email}
               </InputErrMsg>
-              <Label htmlFor="password">Password</Label>
               <InputField
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -117,7 +119,6 @@ function RegisterForm(props) {
               <InputErrMsg isInvalid={errors.password && touched.password}>
                 {errors.password}
               </InputErrMsg>
-              <Label htmlFor="repeatedPassword">Repeat password</Label>
               <InputField
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -146,7 +147,7 @@ function RegisterForm(props) {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.auth.isLoggedIn
+    isLoggedIn: state.auth.isLoggedIn,
   };
 };
 

@@ -9,7 +9,7 @@ import {
   SubmitButton,
   FormHeader,
   FormContainer,
-  Label,
+  // Label,
   // RememberMeLabel,
   InputErrMsg,
 } from "./common-elements";
@@ -33,7 +33,7 @@ function LogInForm(props) {
 
   return (
     <Card>
-      <FormHeader>Login by email</FormHeader>
+      <FormHeader>Sign In!</FormHeader>
       <Formik
         initialValues={{ ...signInState }}
         validateOnBlur={true}
@@ -80,7 +80,6 @@ function LogInForm(props) {
         render={({ handleChange, errors, values, touched, handleBlur }) => (
           <Form>
             <FormContainer>
-              <Label htmlFor="loginEmail">Email</Label>
               <InputField
                 isInvalid={errors.loginEmail && touched.loginEmail}
                 value={values.loginEmail}
@@ -93,7 +92,6 @@ function LogInForm(props) {
               <InputErrMsg isInvalid={errors.loginEmail && touched.loginEmail}>
                 {errors.loginEmail}
               </InputErrMsg>
-              <Label htmlFor="loginPassword">Password</Label>
               <InputField
                 isInvalid={errors.loginPassword && touched.loginPassword}
                 value={values.loginPassword}
@@ -112,12 +110,6 @@ function LogInForm(props) {
               <SubmitButton disabled={props.isLoggedIn} type="submit">
                 Sign in <span className="fas fa-sign-in-alt" />
               </SubmitButton>
-              {/* <RememberMeSection>
-                <Checkbox type="checkbox" onChange={() => {}} id="rememberMe" />
-                <RememberMeLabel htmlFor="rememberMe">
-                  Remember me
-                </RememberMeLabel>
-              </RememberMeSection> */}
             </FormContainer>
           </Form>
         )}

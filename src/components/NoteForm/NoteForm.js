@@ -199,7 +199,7 @@ function NoteForm({
             name="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Tytuł"
+            placeholder="Title"
           />
           <IconButton
             className={isPinned ? "icon-pin" : "icon-pin-outline"}
@@ -226,7 +226,7 @@ function NoteForm({
             value={note}
             onChange={(e) => setNote(e.target.value)}
             onClick={() => setInputOpen(true)}
-            placeholder="Utwórz notatkę..."
+            placeholder="Take a note..."
           />
         )}{" "}
         {!isInputOpen && !editMode && (

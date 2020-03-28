@@ -14,13 +14,15 @@ import {
 function SocialsAuth() {
   return (
     <Card>
-      <FormHeader>Continue with google account</FormHeader>
-      <SocialsContainer>
-        {/* <FacebookBtn onClick={signInWithFacebook}>
+      <FormHeader>Continue with your Google Account!</FormHeader>
+      {/* <SocialsContainer>
+        <FacebookBtn onClick={signInWithFacebook}>
           Sing in with <Icon className="fab fa-facebook-square" />
-        </FacebookBtn> */}
+        </FacebookBtn>
+      </SocialsContainer> */}
+      <SocialsContainer>
         <GoogleBtn onClick={signInWithGoogle}>
-          Sing in with <Icon className="fab fa-google" />
+          Sign in with <Icon className="fab fa-google" />
         </GoogleBtn>
       </SocialsContainer>
     </Card>

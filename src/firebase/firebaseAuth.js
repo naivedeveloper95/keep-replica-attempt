@@ -37,9 +37,9 @@ auth.onAuthStateChanged((user) => {
 export const signInWithGoogle = () => {
   auth
     .signInWithPopup(googleProvider)
-    .then((result) => {
-      // const { uid, email } = auth.currentUser();
-      // store.dispatch(logIn({ email, uid }));
+    .then(() => {
+      const { uid, email } = auth.currentUser();
+      store.dispatch(logIn({ email, uid }));
     })
     .catch((err) => {
       console.error(err);
@@ -50,7 +50,7 @@ export const signInWithGoogle = () => {
 export const signInWithFacebook = () => {
   auth
     .signInWithPopup(facebookProvider)
-    .then((result) => {})
+    .then(() => {})
     .catch((error) => {
       const errorCode = error.code;
       const credential = error.credential;

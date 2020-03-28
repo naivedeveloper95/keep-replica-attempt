@@ -8,14 +8,10 @@ function About() {
   return (
     <section style={{ height: "84vh", color: "#333" }}>
       <div style={{ margin: "20px 20px" }}>
-        <h3>My Keep v1.0.0 is finished</h3>
-        <p>Finally first version of My Keep is available</p>
-        <p>
-          It was cool project for me where I could tested plenty of features and
-          approaches
-        </p>
+        <h3>Keep v1.0.0 is finished</h3>
+        <p>Finally first version of Keep is available</p>
         <h4 style={{ marginTop: "10px" }}>
-          Basic features which I included in my version are:
+          Basic features which included in this version are:
         </h4>
         <ul
           style={{ display: "flex", flexDirection: "column", margin: "20px" }}

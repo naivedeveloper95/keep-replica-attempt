@@ -1,7 +1,7 @@
-import React from 'react';
-import TagWidget from '../TagWidget/TagWidget';
-import ColorPicker from '../ColorPicker/ColorPicker';
-import { FormToolsGroup, CloseBtn, IconButton } from './NoteFormElements';
+import React from "react";
+import TagWidget from "../TagWidget/TagWidget";
+import ColorPicker from "../ColorPicker/ColorPicker";
+import { FormToolsGroup, CloseBtn, IconButton } from "./NoteFormElements";
 
 function NotesFormFooter({
   chosenTags,
@@ -13,12 +13,12 @@ function NotesFormFooter({
   noteEditorMode,
   closeOption = true,
   isHovered = true,
-  children
+  children,
 }) {
   return (
-    <FormToolsGroup style={{ cursor: 'default' }} isHovered={isHovered}>
+    <FormToolsGroup style={{ cursor: "default" }} isHovered={isHovered}>
       <IconButton
-        className={noteEditorMode ? 'far fa-clipboard' : 'fas fa-list-ul'}
+        className={noteEditorMode ? "far fa-clipboard" : "fas fa-list-ul"}
         onClick={handleToggleClick}
       />
       <TagWidget
@@ -27,7 +27,7 @@ function NotesFormFooter({
         setTags={setTags}
       />
       <ColorPicker chosenColor={bgColor} setBgColor={setBgColor} />
-      {closeOption && <CloseBtn onClick={handleCloseClick}>Zamknij</CloseBtn>}
+      {closeOption && <CloseBtn onClick={handleCloseClick}>Close</CloseBtn>}
       {children}
     </FormToolsGroup>
   );
