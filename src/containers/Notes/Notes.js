@@ -25,7 +25,7 @@ function Notes({ notes }) {
               marginTop: "20px",
             }}
           >
-            {notes.find((note) => note.isPinned === true) && <p>PRZYPIĘTE</p>}
+            {notes.find((note) => note.isPinned === true) && <p>PINNED</p>}
           </div>
           <NotesList isPinnedList={true} />
           <div
@@ -38,7 +38,7 @@ function Notes({ notes }) {
               marginLeft: "30%",
             }}
           >
-            {notes.find((note) => note.isPinned === false) && <p>INNE</p>}
+            {notes.find((note) => note.isPinned === false) && <p>OTHER</p>}
           </div>
           <NotesList isPinnedList={false} />
         </>

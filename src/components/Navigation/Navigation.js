@@ -16,28 +16,14 @@ import { Icon } from "../../UI/theme";
 import { signOut } from "../../firebase/firebaseAuth";
 
 function DesktopNav({ isLoggedIn }) {
-  return (
-    <DesktopLinksGroup>
-      {!isLoggedIn && (
-        <NavElement>
-          <Link style={{ textDecoration: "none", color: "#fff" }} to="/">
-            Home
-          </Link>
-        </NavElement>
-      )}
-      {isLoggedIn && (
+  if (isLoggedIn) {
+    return (
+      <DesktopLinksGroup>
         <NavElement>
           <Link style={{ textDecoration: "none", color: "#fff" }} to="/notes">
             Notes
           </Link>
         </NavElement>
-      )}
-      <NavElement>
-        <Link style={{ textDecoration: "none", color: "#fff" }} to="/about">
-          About
-        </Link>
-      </NavElement>
-      {isLoggedIn && (
         <NavElement>
           <Link
             onClick={signOut}
@@ -47,30 +33,29 @@ function DesktopNav({ isLoggedIn }) {
             Log out
           </Link>
         </NavElement>
-      )}
-    </DesktopLinksGroup>
-  );
+      </DesktopLinksGroup>
+    );
+  } else {
+    return (
+      <DesktopLinksGroup>
+        <NavElement>
+          <Link style={{ textDecoration: "none", color: "#fff" }} to="/">
+            Home
+          </Link>
+        </NavElement>
+      </DesktopLinksGroup>
+    );
+  }
 }
 function MobileNav({ isLoggedIn }) {
   const [isMobileNavOpen, toggleMobileNav] = useState(false);
-  return (
-    <>
-      <Hamburger onClick={() => toggleMobileNav(!isMobileNavOpen)}>
-        <Icon className="fas fa-bars fa-2x" />
-      </Hamburger>
-      <MobileLinksGroup isOpen={isMobileNavOpen}>
-        {!isLoggedIn && (
-          <NavMobileElement>
-            <Link
-              onClick={() => toggleMobileNav(!isMobileNavOpen)}
-              style={{ textDecoration: "none", color: "#fff" }}
-              to="/notes"
-            >
-              <Icon className="fas fa-home" /> Home
-            </Link>
-          </NavMobileElement>
-        )}
-        {isLoggedIn && (
+  if (isLoggedIn) {
+    return (
+      <>
+        <Hamburger onClick={() => toggleMobileNav(!isMobileNavOpen)}>
+          <Icon className="fas fa-bars fa-2x" />
+        </Hamburger>
+        <MobileLinksGroup isOpen={isMobileNavOpen}>
           <NavMobileElement>
             <Link
               onClick={() => toggleMobileNav(!isMobileNavOpen)}
@@ -80,17 +65,6 @@ function MobileNav({ isLoggedIn }) {
               <Icon className="far fa-clipboard" /> Notes
             </Link>
           </NavMobileElement>
-        )}
-        <NavMobileElement>
-          <Link
-            onClick={() => toggleMobileNav(!isMobileNavOpen)}
-            style={{ textDecoration: "none", color: "#fff" }}
-            to="/about"
-          >
-            <Icon className="fas fa-info" /> About
-          </Link>
-        </NavMobileElement>
-        {isLoggedIn && (
           <NavMobileElement>
             <Link
               onClick={() => {
@@ -103,13 +77,37 @@ function MobileNav({ isLoggedIn }) {
               <Icon className="fas fa-sign-out-alt" /> Log out
             </Link>
           </NavMobileElement>
-        )}
-        <CloseNavBtn onClick={() => toggleMobileNav(!isMobileNavOpen)}>
-          <Icon className="fas fa-times" /> Close
-        </CloseNavBtn>
-      </MobileLinksGroup>
-    </>
-  );
+          <CloseNavBtn onClick={() => toggleMobileNav(!isMobileNavOpen)}>
+            <Icon className="fas fa-times" /> Close
+          </CloseNavBtn>
+        </MobileLinksGroup>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Hamburger onClick={() => toggleMobileNav(!isMobileNavOpen)}>
+          <Icon className="fas fa-bars fa-2x" />
+        </Hamburger>
+        <MobileLinksGroup isOpen={isMobileNavOpen}>
+          <NavMobileElement>
+            <Link
+              onClick={() => toggleMobileNav(!isMobileNavOpen)}
+              style={{ textDecoration: "none", color: "#fff" }}
+              to="/"
+            >
+              <Icon className="fas fa-home" />
+              Home
+            </Link>
+          </NavMobileElement>
+          <CloseNavBtn onClick={() => toggleMobileNav(!isMobileNavOpen)}>
+            <Icon className="fas fa-times" />
+            Close
+          </CloseNavBtn>
+        </MobileLinksGroup>
+      </>
+    );
+  }
 }
 
 function Navigation({ isLoggedIn }) {

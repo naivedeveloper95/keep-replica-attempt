@@ -28,7 +28,7 @@ function TagWidget({
     const tag = newTagName.trim();
     if (tag !== "" && tags.every((tag) => newTagName.trim() !== tag.name)) {
       addTag({ name: tag }); //Redux action creator
-      setTags([...chosenTags, tag]); //Hook for note form // TODO: check if there is no better practise for that
+      setTags([...chosenTags, tag]); //Hook for note form
       setNewTagName("");
     }
   };
@@ -85,7 +85,7 @@ function TagWidget({
           {newTagName && checkDuplicates() && (
             <AddTagBtn onClick={handleSubmit}>
               <span className="fas fa-plus fa-xs" style={{ margin: "0 4px" }} />{" "}
-              Utwórz etykietę "{newTagName}"
+              Create a label "{newTagName}"
             </AddTagBtn>
           )}
         </TagFormContainer>

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const FooterContainer = styled.footer`
   height: 0vh;
   text-align: center;
-  background: #ffffff;
+  background-color: #ffffff;
   line-height: 70px;
   color: #ffffff;
   font-size: 20px;
@@ -12,7 +12,7 @@ const FooterContainer = styled.footer`
   @media (max-width: 959px) {
     height: 50px;
     line-height: 50px;
-    background: #ffffff;
+    background-color: #ffffff;
   }
 `;
 
