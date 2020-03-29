@@ -11,9 +11,8 @@ An attempt to create a replica of google keep
 - Formik for validation form
 - Firebase (firestore, auth)
 - Styled Components
-- npm, bunch of components, drag and drop library (react-beautiful-dnd)
 
 ## In Progress
 
 - filtering/searching
-- Some more features like adding an removing tags
+- Some more features like adding and removing tags
