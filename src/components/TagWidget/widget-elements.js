@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 export const TagWidgetContainer = styled.div`
   position: relative;
-`;
+`
 export const TagFormContainer = styled.div`
   position: absolute;
   top: 30px;
@@ -15,10 +15,10 @@ export const TagFormContainer = styled.div`
   overflow: hidden;
   padding: 8px 0px 0px 0px;
   border-radius: 3px;
-`;
+`
 export const Icon = styled.span`
   margin-right: 13px;
-`;
+`
 export const IconButton = styled.button`
   color: #666;
   border: none;
@@ -28,12 +28,12 @@ export const IconButton = styled.button`
   &:hover {
     color: #333;
   }
-`;
+`
 export const WidgetTitle = styled.p`
   margin: 0 13px;
   font-size: 16px;
   color: #333;
-`;
+`
 export const TagInput = styled.input`
   margin: 15px 13px;
   outline: none;
@@ -43,7 +43,7 @@ export const TagInput = styled.input`
   font-size: 14px;
   line-height: 1.2;
   letter-spacing: 0.4px;
-`;
+`
 
 export const AddTagBtn = styled.button`
   width: 100%;
@@ -63,13 +63,13 @@ export const AddTagBtn = styled.button`
   &:hover {
     background: rgb(247, 247, 247);
   }
-`;
+`
 export const TagList = styled.ul`
   padding: 10px 0;
   overflow-y: scroll;
   height: 150px;
   list-style: none;
-`;
+`
 
 export const Tag = styled.li`
   width: 100%;
@@ -79,11 +79,11 @@ export const Tag = styled.li`
   &:hover {
     background: rgb(247, 247, 247);
   }
-`;
+`
 export const Checkbox = styled.input`
   background: transparent;
-`;
+`
 export const Label = styled.label`
   margin-left: 7px;
   color: #666;
-`;
+`

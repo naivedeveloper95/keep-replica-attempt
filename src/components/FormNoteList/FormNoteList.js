@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   IconButton,
   Icon,
@@ -6,83 +6,83 @@ import {
   ListItem,
   ListItemForm,
   // Checkbox,
-  ListItemFormInput,
-} from "../NoteForm/NoteFormElements";
-import Checkbox from "../NotesList/Checkbox";
-import uuid from "uuid";
+  ListItemFormInput
+} from '../NoteForm/NoteFormElements'
+import Checkbox from '../NotesList/Checkbox'
+import uuid from 'uuid'
 
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 function FormNoteList({
   checkList,
   setCheckList,
   deleteListItem,
-  editMode = false,
+  editMode = false
 }) {
-  const [listItem, setListItem] = useState("");
+  const [listItem, setListItem] = useState('')
   const handleSubmit = (e) => {
-    const uid = uuid();
+    const uid = uuid()
     const newCheckList = {
       ...checkList,
       [uid]: {
         listItem: e.target.value,
         status: false,
-        uid,
-      },
-    };
-    setCheckList(newCheckList);
-    setListItem("");
-  };
+        uid
+      }
+    }
+    setCheckList(newCheckList)
+    setListItem('')
+  }
   const handleChange = (e, item) => {
     setCheckList({
       ...checkList,
       [item.uid]: {
         ...checkList[item.uid],
-        listItem: e.target.value,
-      },
-    });
-  };
+        listItem: e.target.value
+      }
+    })
+  }
   const handleKeyUp = (e) => {
-    if (e.key === "Enter") {
-      document.getElementById("listItemFormInput").focus();
+    if (e.key === 'Enter') {
+      document.getElementById('listItemFormInput').focus()
     }
-  };
+  }
   //TODO: refactor result function
   const onDragEnd = (result) => {
-    const sourceIndex = result.source.index;
-    const destinationIndex = result.destination.index;
+    const sourceIndex = result.source.index
+    const destinationIndex = result.destination.index
 
     if (!destinationIndex || destinationIndex === sourceIndex) {
-      return;
+      return
     }
-    let movedItemId;
+    let movedItemId
     let newCheckList = Object.values(checkList)
       .filter((listItem, index) => {
-        if (index !== sourceIndex) return true;
-        movedItemId = listItem.uid;
-        return false;
+        if (index !== sourceIndex) return true
+        movedItemId = listItem.uid
+        return false
       })
       .reduce((newCheckList, listItem, index) => {
         if (index === destinationIndex) {
           newCheckList[movedItemId] = {
             uid: movedItemId,
-            listItem: checkList[movedItemId].listItem,
-          };
+            listItem: checkList[movedItemId].listItem
+          }
         }
         newCheckList[listItem.uid] = {
           uid: listItem.uid,
-          listItem: listItem.listItem,
-        };
-        return newCheckList;
-      }, {});
+          listItem: listItem.listItem
+        }
+        return newCheckList
+      }, {})
     if (Object.values(newCheckList).length !== destinationIndex + 1) {
       newCheckList[movedItemId] = {
         uid: movedItemId,
-        listItem: checkList[movedItemId].listItem,
-      };
+        listItem: checkList[movedItemId].listItem
+      }
     }
-    setCheckList(newCheckList);
-  };
+    setCheckList(newCheckList)
+  }
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
@@ -111,9 +111,9 @@ function FormNoteList({
                             ...checkList,
                             [item.uid]: {
                               ...checkList[item.uid],
-                              status: !checkList[item.uid].status,
-                            },
-                          });
+                              status: !checkList[item.uid].status
+                            }
+                          })
                         }}
                         listItem={checkList[item.uid]}
                       />
@@ -148,7 +148,7 @@ function FormNoteList({
         )}
       </Droppable>
     </DragDropContext>
-  );
+  )
 }
 
-export default FormNoteList;
+export default FormNoteList

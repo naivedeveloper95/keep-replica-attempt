@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 export const AppContainer = styled.div`
   min-height: 100%;
   background-color: #fcfcfc;
-`;
+`
 export const Card = styled.div`
   padding: 15px;
   margin: 5px;
@@ -14,7 +14,7 @@ export const Card = styled.div`
   @media (max-width: 500px) {
     margin: 5px 0;
   }
-`;
+`
 export const Icon = styled.span`
   color: ${(props) => (props.color ? props.color : '#fff')};
-`;
+`

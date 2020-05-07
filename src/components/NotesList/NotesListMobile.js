@@ -1,6 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Note from './Note';
+import React from 'react'
+import { connect } from 'react-redux'
+import Note from './Note'
 
 const NotesListMobile = ({ notes }) => {
   return (
@@ -16,12 +16,12 @@ const NotesListMobile = ({ notes }) => {
         <Note key={note.uuid} task={note} index={index} />
       ))}
     </div>
-  );
-};
+  )
+}
 const mapStateToProps = (state) => {
   return {
     notes: state.notes.notes
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, {})(NotesListMobile);
+export default connect(mapStateToProps, {})(NotesListMobile)

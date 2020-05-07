@@ -1,15 +1,15 @@
-import React from "react";
-import { Card, Icon } from "../../UI/theme";
+import React from 'react'
+import { Card, Icon } from '../../UI/theme'
 import {
   SocialsContainer,
   // FacebookBtn,
   GoogleBtn,
-  FormHeader,
-} from "./common-elements";
+  FormHeader
+} from './common-elements'
 import {
-  signInWithGoogle,
+  signInWithGoogle
   // signInWithFacebook
-} from "../../firebase/firebaseAuth";
+} from '../../firebase/firebaseAuth'
 
 function SocialsAuth() {
   return (
@@ -26,7 +26,7 @@ function SocialsAuth() {
         </GoogleBtn>
       </SocialsContainer>
     </Card>
-  );
+  )
 }
 
-export default SocialsAuth;
+export default SocialsAuth

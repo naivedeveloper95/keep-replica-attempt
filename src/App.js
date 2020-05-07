@@ -1,10 +1,10 @@
-import React from "react";
-import { Navigation, Footer } from "./components";
-import { Home, Notes } from "./containers";
-import { AppContainer } from "./UI/theme";
-import { Provider } from "react-redux";
-import { store } from "./redux/storeConfig";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import React from 'react'
+import { Navigation, Footer } from './components'
+import { Home, Notes } from './containers'
+import { AppContainer } from './UI/theme'
+import { Provider } from 'react-redux'
+import { store } from './redux/storeConfig'
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 function App() {
   return (
     <Provider store={store}>
@@ -19,7 +19,7 @@ function App() {
         </AppContainer>
       </Router>
     </Provider>
-  );
+  )
 }
 
-export default App;
+export default App

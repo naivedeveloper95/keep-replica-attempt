@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Pallette = styled.div`
   position: absolute;
@@ -11,10 +11,10 @@ export const Pallette = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-`;
+`
 export const Icon = styled.span`
   color: ${(props) => (props.color ? props.color : 'auto')};
-`;
+`
 export const Button = styled.button`
   color: #666;
   border: none;
@@ -24,7 +24,7 @@ export const Button = styled.button`
   &:hover {
     color: #333;
   }
-`;
+`
 export const Color = styled.button`
   box-shadow: 0px 0px 2px 1px rgba(122, 122, 122, 0.5);
   opacity: 0.8;
@@ -39,7 +39,7 @@ export const Color = styled.button`
     border: 2px solid #333;
     box-shadow: none;
   }
-`;
+`
 export const ColorPickerContainer = styled.div`
   position: relative;
-`;
+`

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 // import styled from 'styled-components';
-import { Formik, Form } from "formik";
-import * as Yup from "yup";
+import { Formik, Form } from 'formik'
+import * as Yup from 'yup'
 import {
   InputField,
   SubmitButton,
@@ -11,10 +11,10 @@ import {
   FormContainer,
   // Label,
   // RememberMeLabel,
-  InputErrMsg,
-} from "./common-elements";
-import { Card } from "../../UI/theme";
-import { signInWithEmailAndPassword } from "../../firebase/firebaseAuth";
+  InputErrMsg
+} from './common-elements'
+import { Card } from '../../UI/theme'
+import { signInWithEmailAndPassword } from '../../firebase/firebaseAuth'
 
 // const RememberMeSection = styled.div`
 //   margin-top: 10px;
@@ -27,9 +27,9 @@ import { signInWithEmailAndPassword } from "../../firebase/firebaseAuth";
 // `;
 function LogInForm(props) {
   const [signInState] = useState({
-    loginEmail: "",
-    loginPassword: "",
-  });
+    loginEmail: '',
+    loginPassword: ''
+  })
 
   return (
     <Card>
@@ -40,42 +40,42 @@ function LogInForm(props) {
         validateOnChange={true}
         validationSchema={Yup.object().shape({
           loginEmail: Yup.string()
-            .email("Invalid email!")
-            .required("Email is required!"),
+            .email('Invalid email!')
+            .required('Email is required!'),
           loginPassword: Yup.string()
-            .min(2, "Password is to short")
-            .max(10, "Password is to long")
-            .required("Password is required!"),
+            .min(2, 'Password is to short')
+            .max(10, 'Password is to long')
+            .required('Password is required!')
         })}
         onSubmit={({ loginEmail, loginPassword }, { setErrors, resetForm }) => {
           signInWithEmailAndPassword(loginEmail, loginPassword)
             .then(() => {
-              resetForm();
+              resetForm()
               setTimeout(() => {
-                props.history.push("/notes");
-              }, 500);
+                props.history.push('/notes')
+              }, 500)
               //TODO SHOW TOAST
             })
             .catch((error) => {
               //TODO check if there is possible to get multiply of errors message
-              const errorCode = error.code;
-              if (errorCode === "auth/invalid-email") {
-                setErrors({ loginEmail: "Invalid Email!" });
-              } else if (errorCode === "auth/user-disabled") {
-                setErrors({ loginEmail: "User is disabled!" });
-              } else if (errorCode === "auth/user-not-found") {
-                setErrors({ loginEmail: "User is not found!" });
-              } else if (errorCode === "auth/wrong-password") {
+              const errorCode = error.code
+              if (errorCode === 'auth/invalid-email') {
+                setErrors({ loginEmail: 'Invalid Email!' })
+              } else if (errorCode === 'auth/user-disabled') {
+                setErrors({ loginEmail: 'User is disabled!' })
+              } else if (errorCode === 'auth/user-not-found') {
+                setErrors({ loginEmail: 'User is not found!' })
+              } else if (errorCode === 'auth/wrong-password') {
                 setErrors({
-                  loginPassword: "Wrong password",
-                });
+                  loginPassword: 'Wrong password'
+                })
               } else {
                 setErrors({
-                  loginEmail: "Invalid Email",
-                  loginPassword: "Invalid password",
-                });
+                  loginEmail: 'Invalid Email',
+                  loginPassword: 'Invalid password'
+                })
               }
-            });
+            })
         }}
         render={({ handleChange, errors, values, touched, handleBlur }) => (
           <Form>
@@ -115,13 +115,13 @@ function LogInForm(props) {
         )}
       />
     </Card>
-  );
+  )
 }
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.auth.isLoggedIn,
-  };
-};
+    isLoggedIn: state.auth.isLoggedIn
+  }
+}
 
-export default withRouter(connect(mapStateToProps, {})(LogInForm));
+export default withRouter(connect(mapStateToProps, {})(LogInForm))

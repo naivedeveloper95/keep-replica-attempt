@@ -1,4 +1,4 @@
-import Notes from "./Notes/Notes";
-import Home from "./Home/Home";
+import Notes from './Notes/Notes'
+import Home from './Home/Home'
 
-export { Notes, Home };
+export { Notes, Home }

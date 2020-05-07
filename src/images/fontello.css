@@ -1,11 +1,11 @@
 @font-face {
-  font-family: "fontello";
-  src: url("./font/fontello.eot?54282943");
-  src: url("./font/fontello.eot?54282943#iefix") format("embedded-opentype"),
-    url("./font/fontello.woff2?54282943") format("woff2"),
-    url("./font/fontello.woff?54282943") format("woff"),
-    url("./font/fontello.ttf?54282943") format("truetype"),
-    url("./font/fontello.svg?54282943#fontello") format("svg");
+  font-family: 'fontello';
+  src: url('./font/fontello.eot?54282943');
+  src: url('./font/fontello.eot?54282943#iefix') format('embedded-opentype'),
+    url('./font/fontello.woff2?54282943') format('woff2'),
+    url('./font/fontello.woff?54282943') format('woff'),
+    url('./font/fontello.ttf?54282943') format('truetype'),
+    url('./font/fontello.svg?54282943#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -20,9 +20,9 @@
 }
 */
 
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
-  font-family: "fontello";
+[class^='icon-']:before,
+[class*=' icon-']:before {
+  font-family: 'fontello';
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -57,8 +57,8 @@
 }
 
 .icon-pin-outline:before {
-  content: "\e803";
+  content: '\e803';
 } /* '' */
 .icon-pin:before {
-  content: "\e804";
+  content: '\e804';
 } /* '' */

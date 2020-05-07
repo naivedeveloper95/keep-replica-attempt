@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 const CheckBoxContainer = styled.label`
   margin-right: 8px;
   cursor: pointer;
-`;
+`
 
 export default function Checkbox({ handleCheck, listItem }) {
   return (
@@ -19,5 +19,5 @@ export default function Checkbox({ handleCheck, listItem }) {
         type="checkbox"
       />
     </CheckBoxContainer>
-  );
+  )
 }

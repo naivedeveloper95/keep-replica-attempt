@@ -1,8 +1,8 @@
-import React from "react";
-import LogInForm from "./LogInForm";
-import RegisterForm from "./RegisterForm";
-import SocialsAuth from "./SocialsAuth";
-import { AuthContainer } from "./common-elements";
+import React from 'react'
+import LogInForm from './LogInForm'
+import RegisterForm from './RegisterForm'
+import SocialsAuth from './SocialsAuth'
+import { AuthContainer } from './common-elements'
 
 function AuthForm() {
   return (
@@ -11,7 +11,7 @@ function AuthForm() {
       <LogInForm />
       <SocialsAuth />
     </AuthContainer>
-  );
+  )
 }
 
-export default AuthForm;
+export default AuthForm

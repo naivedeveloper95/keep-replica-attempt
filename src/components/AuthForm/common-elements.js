@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const InputField = styled.input`
   margin: 4px 5px 8px 5px;
@@ -13,7 +13,7 @@ export const InputField = styled.input`
     width: 90vw;
     margin: 5px 0;
   }
-`;
+`
 export const InputErrMsg = styled.p`
   position: relative;
   margin-top: -7px;
@@ -22,7 +22,7 @@ export const InputErrMsg = styled.p`
   color: red;
   font-size: 10px;
   display: ${({ isInvalid }) => (isInvalid ? 'block' : 'none')};
-`;
+`
 
 export const SubmitButton = styled.button`
   letter-spacing: 0.3px;
@@ -43,7 +43,7 @@ export const SubmitButton = styled.button`
     width: 90vw;
     margin: 5px 0;
   }
-`;
+`
 
 export const SocialsContainer = styled.div`
   margin: 5px;
@@ -55,7 +55,7 @@ export const SocialsContainer = styled.div`
     flex-direction: column;
     margin: 5px 0;
   }
-`;
+`
 
 export const FacebookBtn = styled.button`
   letter-spacing: 0.3px;
@@ -71,7 +71,7 @@ export const FacebookBtn = styled.button`
     width: 90vw;
     margin-top: 5px;
   }
-`;
+`
 
 export const GoogleBtn = styled.button`
   letter-spacing: 0.3px;
@@ -88,7 +88,7 @@ export const GoogleBtn = styled.button`
     width: 90vw;
     margin-top: 5px;
   }
-`;
+`
 
 export const AuthContainer = styled.div`
   width: 500px;
@@ -101,25 +101,25 @@ export const AuthContainer = styled.div`
     align-items: center;
     width: 100%;
   }
-`;
+`
 export const FormHeader = styled.h3`
   letter-spacing: 0.3px;
   text-align: center;
   margin: 3px 0 8px 0;
   color: #555;
-`;
+`
 export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   @media (max-width: 500px) {
     width: 100%;
   }
-`;
+`
 export const Label = styled.label`
   letter-spacing: 0.3px;
   margin-top: 5px;
   color: #555;
-`;
+`
 export const RememberMeLabel = styled(Label)`
   margin-top: 0;
-`;
+`

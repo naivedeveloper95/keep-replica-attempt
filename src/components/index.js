@@ -1,4 +1,4 @@
-import Navigation from './Navigation/Navigation';
-import Footer from './Footer/Footer';
+import Navigation from './Navigation/Navigation'
+import Footer from './Footer/Footer'
 
-export { Navigation, Footer };
+export { Navigation, Footer }

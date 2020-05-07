@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import {
   TagWidgetContainer,
   TagFormContainer,
@@ -6,50 +6,50 @@ import {
   IconButton, //change path
   WidgetTitle,
   TagInput,
-  AddTagBtn,
-} from "./widget-elements";
-import "./scrollbar.css";
-import { connect } from "react-redux";
-import { addTag } from "../../redux/notes";
-import AvaiableTags from "./AvaiableTags";
+  AddTagBtn
+} from './widget-elements'
+import './scrollbar.css'
+import { connect } from 'react-redux'
+import { addTag } from '../../redux/notes'
+import AvaiableTags from './AvaiableTags'
 
 function TagWidget({
   chosenTags,
   setTags,
   tags = [],
   addTag,
-  isHovered = true,
+  isHovered = true
 }) {
-  const [isWidgetOpen, setIsWidgetOpen] = useState(false);
-  const [newTagName, setNewTagName] = useState("");
+  const [isWidgetOpen, setIsWidgetOpen] = useState(false)
+  const [newTagName, setNewTagName] = useState('')
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const tag = newTagName.trim();
-    if (tag !== "" && tags.every((tag) => newTagName.trim() !== tag.name)) {
-      addTag({ name: tag }); //Redux action creator
-      setTags([...chosenTags, tag]); //Hook for note form
-      setNewTagName("");
+    e.preventDefault()
+    const tag = newTagName.trim()
+    if (tag !== '' && tags.every((tag) => newTagName.trim() !== tag.name)) {
+      addTag({ name: tag }) //Redux action creator
+      setTags([...chosenTags, tag]) //Hook for note form
+      setNewTagName('')
     }
-  };
+  }
 
   useEffect(() => {
-    setIsWidgetOpen(false);
-  }, [isHovered]);
+    setIsWidgetOpen(false)
+  }, [isHovered])
 
   const checkDuplicates = () => {
-    return tags.every((tag) => newTagName.trim() !== tag.name);
-  };
+    return tags.every((tag) => newTagName.trim() !== tag.name)
+  }
 
   const handleChange = (e) => {
-    setNewTagName(e.target.value);
-  };
+    setNewTagName(e.target.value)
+  }
 
-  let tagsToDisplay;
-  if (newTagName.trim() === "") {
-    tagsToDisplay = tags;
+  let tagsToDisplay
+  if (newTagName.trim() === '') {
+    tagsToDisplay = tags
   } else {
-    tagsToDisplay = tags.filter((tag) => tag.name.includes(newTagName));
+    tagsToDisplay = tags.filter((tag) => tag.name.includes(newTagName))
   }
 
   return (
@@ -62,7 +62,7 @@ function TagWidget({
           <WidgetTitle>Note label</WidgetTitle>
           <form
             onSubmit={handleSubmit}
-            style={{ display: "flex", alignItems: "center" }}
+            style={{ display: 'flex', alignItems: 'center' }}
           >
             <TagInput
               value={newTagName}
@@ -72,7 +72,7 @@ function TagWidget({
               type="text"
             />
             <Icon
-              style={{ fontSize: "13px", color: "#666", marginBottom: "2px" }}
+              style={{ fontSize: '13px', color: '#666', marginBottom: '2px' }}
               className="fas fa-search"
             />
           </form>
@@ -84,24 +84,24 @@ function TagWidget({
           />
           {newTagName && checkDuplicates() && (
             <AddTagBtn onClick={handleSubmit}>
-              <span className="fas fa-plus fa-xs" style={{ margin: "0 4px" }} />{" "}
+              <span className="fas fa-plus fa-xs" style={{ margin: '0 4px' }} />{' '}
               Create a label "{newTagName}"
             </AddTagBtn>
           )}
         </TagFormContainer>
       )}
     </TagWidgetContainer>
-  );
+  )
 }
 
 const mapStateToProps = (state) => {
   return {
-    tags: state.notes.tags,
-  };
-};
+    tags: state.notes.tags
+  }
+}
 
 const mapDispatchToProps = {
-  addTag,
-};
+  addTag
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(TagWidget);
+export default connect(mapStateToProps, mapDispatchToProps)(TagWidget)

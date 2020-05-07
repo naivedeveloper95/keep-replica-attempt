@@ -1,43 +1,39 @@
-import React from "react";
-import { connect } from "react-redux";
-import { IconButton } from "../NoteForm/NoteFormElements";
-import NotesFormFooter from "../NoteForm/NotesFormFooter";
+import React from 'react'
+import { connect } from 'react-redux'
+import { IconButton } from '../NoteForm/NoteFormElements'
+import NotesFormFooter from '../NoteForm/NotesFormFooter'
 import {
   updateNote,
   removeNoteFromDB,
-  updateStructure,
-} from "../../firebase/firebaseAPI";
-import {
-  updateStructureLocally,
-  deleteNote,
-  editNote,
-} from "../../redux/notes";
-import TagList from "../TagList/TagList";
-import cloneDeep from "clone-deep";
-import Checkbox from "./Checkbox";
+  updateStructure
+} from '../../firebase/firebaseAPI'
+import { updateStructureLocally, deleteNote, editNote } from '../../redux/notes'
+import TagList from '../TagList/TagList'
+import cloneDeep from 'clone-deep'
+import Checkbox from './Checkbox'
 import {
   NoteContainer,
   Title,
   NoteContent,
   TextNote,
-  CheckListItem,
-} from "./notes-list-elements";
-import uuid from "uuid";
+  CheckListItem
+} from './notes-list-elements'
+import uuid from 'uuid'
 
 class Task extends React.Component {
   state = {
     isHovered: false,
     isContextMenuOpen: false,
-    editMode: false,
-  };
+    editMode: false
+  }
 
   handleMouseOver = () => {
-    this.setState({ isHovered: true });
-  };
+    this.setState({ isHovered: true })
+  }
 
   handleMouseLeave = () => {
-    this.setState({ isHovered: false });
-  };
+    this.setState({ isHovered: false })
+  }
 
   handleDeleteClick = () => {
     const {
@@ -45,98 +41,98 @@ class Task extends React.Component {
       //   column,
       task,
       deleteNote,
-      updateStructureLocally,
-    } = this.props;
-    let column;
+      updateStructureLocally
+    } = this.props
+    let column
     for (let prop in noteStructure) {
-      if (noteStructure[prop].hasOwnProperty("tasksIds")) {
+      if (noteStructure[prop].hasOwnProperty('tasksIds')) {
         const isLookingCol = noteStructure[prop].tasksIds.find(
           (uid) => uid === task.uuid
-        );
+        )
         if (isLookingCol) {
-          column = prop;
+          column = prop
         }
       }
     }
-    const newStructure = cloneDeep(noteStructure);
+    const newStructure = cloneDeep(noteStructure)
     newStructure[column].tasksIds = newStructure[column].tasksIds.filter(
       (taskId) => taskId !== task.uuid
-    );
+    )
 
-    deleteNote(task);
-    updateStructureLocally(newStructure);
-    removeNoteFromDB(task, column);
-  };
+    deleteNote(task)
+    updateStructureLocally(newStructure)
+    removeNoteFromDB(task, column)
+  }
 
   handleCheck = (listItem) => {
     const {
-      task: { checkList, id },
-    } = this.props;
-    const newCheckList = { ...checkList };
-    newCheckList[listItem.uid].status = !newCheckList[listItem.uid].status;
-    updateNote({ checkList: newCheckList }, id);
-  };
+      task: { checkList, id }
+    } = this.props
+    const newCheckList = { ...checkList }
+    newCheckList[listItem.uid].status = !newCheckList[listItem.uid].status
+    updateNote({ checkList: newCheckList }, id)
+  }
 
   handleToggleClick = () => {
-    const { task } = this.props;
+    const { task } = this.props
     if (Object.values(task.checkList).length === 0) {
-      const newCheckList = {};
+      const newCheckList = {}
       task.note.split(/\n/).forEach((phrase) => {
-        const newUid = uuid();
+        const newUid = uuid()
         newCheckList[newUid] = {
           uid: newUid,
           status: false,
-          listItem: phrase,
-        };
-      });
-      updateNote({ checkList: newCheckList, note: "" }, task.id);
+          listItem: phrase
+        }
+      })
+      updateNote({ checkList: newCheckList, note: '' }, task.id)
     } else {
       const newNote = Object.values(task.checkList)
         .map((note) => note.listItem)
-        .join("\n");
-      updateNote({ checkList: {}, note: newNote }, task.id);
+        .join('\n')
+      updateNote({ checkList: {}, note: newNote }, task.id)
     }
-  };
+  }
 
   handlePinClick = (isPinned, id) => {
     updateNote(
       { isPinned: !this.props.task.isPinned },
       this.props.task.id
     ).then(() => {
-      let noteStructure;
+      let noteStructure
       if (!this.props.task.isPinned) {
-        noteStructure = { ...this.props.noteStructure };
+        noteStructure = { ...this.props.noteStructure }
         for (let prop in noteStructure) {
-          if (noteStructure[prop].hasOwnProperty("tasksIds")) {
+          if (noteStructure[prop].hasOwnProperty('tasksIds')) {
             noteStructure[prop].tasksIds = noteStructure[prop].tasksIds.filter(
               (taskId) => taskId !== this.props.task.uuid
-            );
+            )
           }
         }
-        noteStructure["column-1"].tasksIds.push(this.props.task.uuid);
+        noteStructure['column-1'].tasksIds.push(this.props.task.uuid)
       } else {
-        noteStructure = { ...this.props.noteStructure };
+        noteStructure = { ...this.props.noteStructure }
 
         for (let prop in noteStructure) {
-          if (noteStructure[prop].hasOwnProperty("tasksIds")) {
+          if (noteStructure[prop].hasOwnProperty('tasksIds')) {
             noteStructure[prop].tasksIds = noteStructure[prop].tasksIds.filter(
               (taskId) => taskId !== this.props.task.uuid
-            );
+            )
           }
         }
-        noteStructure["column-5"].tasksIds.push(this.props.task.uuid);
+        noteStructure['column-5'].tasksIds.push(this.props.task.uuid)
       }
-      updateStructure(noteStructure);
-      this.props.updateStructureLocally(noteStructure);
-    });
-  };
+      updateStructure(noteStructure)
+      this.props.updateStructureLocally(noteStructure)
+    })
+  }
 
   render() {
     const {
-      task: { title, note, bgColor, tags, checkList, isPinned, id },
-    } = this.props;
+      task: { title, note, bgColor, tags, checkList, isPinned, id }
+    } = this.props
 
-    const { isHovered } = this.state;
+    const { isHovered } = this.state
     // TODO: try to refactor this place, create function which returns content
     let content =
       Object.values(checkList).length === 0 ? (
@@ -149,29 +145,29 @@ class Task extends React.Component {
                 <Checkbox handleCheck={this.handleCheck} listItem={listItem} />
                 <span
                   style={{
-                    textDecoration: listItem.status ? "line-through" : "",
+                    textDecoration: listItem.status ? 'line-through' : ''
                   }}
                 >
                   {listItem.listItem}
                 </span>
               </CheckListItem>
-            );
+            )
 
             if (!listItem.status) {
               return [
                 [...listsToDisplay[0], itemToDisplay],
-                [...listsToDisplay[1]],
-              ];
+                [...listsToDisplay[1]]
+              ]
             } else {
               return [
                 [...listsToDisplay[0]],
-                [...listsToDisplay[1], itemToDisplay],
-              ];
+                [...listsToDisplay[1], itemToDisplay]
+              ]
             }
           },
           [[], []]
         )
-      );
+      )
 
     if (content.length > 1 && content[0].length > 0 && content[1].length > 0) {
       content = [
@@ -179,12 +175,12 @@ class Task extends React.Component {
         <p
           key={Math.random()}
           style={{
-            margin: "5px 0",
-            borderTop: "1px solid rgb(205,205,205)",
+            margin: '5px 0',
+            borderTop: '1px solid rgb(205,205,205)'
           }}
         />,
-        ...content[1],
-      ];
+        ...content[1]
+      ]
     }
 
     return (
@@ -198,28 +194,28 @@ class Task extends React.Component {
         bgColor={this.props.task.bgColor}
       >
         <NoteContent>
-          {title !== "" && (
+          {title !== '' && (
             <Title>
               {title}
               <IconButton
                 style={{
-                  float: "right",
-                  marginRight: "0",
-                  opacity: isHovered ? 1 : 0,
+                  float: 'right',
+                  marginRight: '0',
+                  opacity: isHovered ? 1 : 0
                 }}
-                className={isPinned ? "icon-pin" : "icon-pin-outline"}
+                className={isPinned ? 'icon-pin' : 'icon-pin-outline'}
                 onClick={this.handlePinClick}
               />
             </Title>
           )}
-          {title === "" && (
+          {title === '' && (
             <IconButton
               style={{
-                float: "right",
-                marginRight: "0",
-                opacity: isHovered ? 1 : 0,
+                float: 'right',
+                marginRight: '0',
+                opacity: isHovered ? 1 : 0
               }}
-              className={isPinned ? "icon-pin" : "icon-pin-outline"}
+              className={isPinned ? 'icon-pin' : 'icon-pin-outline'}
               onClick={this.handlePinClick}
             />
           )}
@@ -235,36 +231,36 @@ class Task extends React.Component {
           isHovered={isHovered}
           chosenTags={tags}
           setTags={(newTags) => {
-            updateNote({ tags: [...newTags] }, id);
+            updateNote({ tags: [...newTags] }, id)
           }}
           bgColor={bgColor}
           setBgColor={(color) => {
-            updateNote({ bgColor: color }, id);
+            updateNote({ bgColor: color }, id)
           }}
-          noteEditorMode={note.trim() === ""}
+          noteEditorMode={note.trim() === ''}
           handleToggleClick={this.handleToggleClick}
           closeOption={false}
         >
           <IconButton
             style={{
-              marginLeft: "12px",
+              marginLeft: '12px'
             }}
-            className={"fas fa-trash-alt"}
+            className={'fas fa-trash-alt'}
             onClick={this.handleDeleteClick}
           />
         </NotesFormFooter>
       </NoteContainer>
-    );
+    )
   }
 }
 const mapStateToProps = (state) => {
   return {
-    noteStructure: state.notes.noteStructure,
-  };
-};
+    noteStructure: state.notes.noteStructure
+  }
+}
 
 export default connect(mapStateToProps, {
   updateStructureLocally,
   deleteNote,
-  editNote,
-})(Task);
+  editNote
+})(Task)

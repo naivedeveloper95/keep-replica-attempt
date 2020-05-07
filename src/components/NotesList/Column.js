@@ -1,11 +1,11 @@
-import React from "react";
-import Task from "./NoteDraggable";
-import { Droppable } from "react-beautiful-dnd";
-import { ColumnContainer, TaskList } from "./notes-list-elements";
+import React from 'react'
+import Task from './NoteDraggable'
+import { Droppable } from 'react-beautiful-dnd'
+import { ColumnContainer, TaskList } from './notes-list-elements'
 
 export default class Column extends React.Component {
   render() {
-    const { column, tasks } = this.props;
+    const { column, tasks } = this.props
     return (
       <ColumnContainer>
         <Droppable droppableId={column.id}>
@@ -26,13 +26,13 @@ export default class Column extends React.Component {
                         task={task}
                         index={index}
                       />
-                    );
+                    )
                   })}
               {provided.placeholder}
             </TaskList>
           )}
         </Droppable>
       </ColumnContainer>
-    );
+    )
   }
 }

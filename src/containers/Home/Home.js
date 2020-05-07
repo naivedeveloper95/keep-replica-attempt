@@ -1,6 +1,6 @@
-import React from "react";
-import AuthForm from "../../components/AuthForm/AuthForm";
-import styled from "styled-components";
+import React from 'react'
+import AuthForm from '../../components/AuthForm/AuthForm'
+import styled from 'styled-components'
 
 const HomeContainer = styled.div`
   display: flex;
@@ -11,14 +11,14 @@ const HomeContainer = styled.div`
   @media (max-width: 959px) {
     min-height: calc(100vh - 100px);
   }
-`;
+`
 
 function Home() {
   return (
     <HomeContainer>
       <AuthForm />
     </HomeContainer>
-  );
+  )
 }
 
-export default Home;
+export default Home

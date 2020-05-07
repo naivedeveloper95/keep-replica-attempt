@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import {
   DesktopLinksGroup,
   NavElement,
@@ -9,46 +9,46 @@ import {
   Hamburger,
   MobileLinksGroup,
   CloseNavBtn,
-  NavMobileElement,
-} from "./navigation-elements";
-import { Link } from "react-router-dom";
-import { Icon } from "../../UI/theme";
-import { signOut } from "../../firebase/firebaseAuth";
+  NavMobileElement
+} from './navigation-elements'
+import { Link } from 'react-router-dom'
+import { Icon } from '../../UI/theme'
+import { signOut } from '../../firebase/firebaseAuth'
 
 function DesktopNav({ isLoggedIn }) {
   if (isLoggedIn) {
     return (
       <DesktopLinksGroup>
         <NavElement>
-          <Link style={{ textDecoration: "none", color: "#fff" }} to="/notes">
+          <Link style={{ textDecoration: 'none', color: '#fff' }} to="/notes">
             Notes
           </Link>
         </NavElement>
         <NavElement>
           <Link
             onClick={signOut}
-            style={{ textDecoration: "none", color: "#fff" }}
+            style={{ textDecoration: 'none', color: '#fff' }}
             to="/"
           >
             Log out
           </Link>
         </NavElement>
       </DesktopLinksGroup>
-    );
+    )
   } else {
     return (
       <DesktopLinksGroup>
         <NavElement>
-          <Link style={{ textDecoration: "none", color: "#fff" }} to="/">
+          <Link style={{ textDecoration: 'none', color: '#fff' }} to="/">
             Home
           </Link>
         </NavElement>
       </DesktopLinksGroup>
-    );
+    )
   }
 }
 function MobileNav({ isLoggedIn }) {
-  const [isMobileNavOpen, toggleMobileNav] = useState(false);
+  const [isMobileNavOpen, toggleMobileNav] = useState(false)
   if (isLoggedIn) {
     return (
       <>
@@ -59,7 +59,7 @@ function MobileNav({ isLoggedIn }) {
           <NavMobileElement>
             <Link
               onClick={() => toggleMobileNav(!isMobileNavOpen)}
-              style={{ textDecoration: "none", color: "#fff" }}
+              style={{ textDecoration: 'none', color: '#fff' }}
               to="/notes"
             >
               <Icon className="far fa-clipboard" /> Notes
@@ -68,10 +68,10 @@ function MobileNav({ isLoggedIn }) {
           <NavMobileElement>
             <Link
               onClick={() => {
-                signOut();
-                toggleMobileNav(!isMobileNavOpen);
+                signOut()
+                toggleMobileNav(!isMobileNavOpen)
               }}
-              style={{ textDecoration: "none", color: "#fff" }}
+              style={{ textDecoration: 'none', color: '#fff' }}
               to="/"
             >
               <Icon className="fas fa-sign-out-alt" /> Log out
@@ -82,7 +82,7 @@ function MobileNav({ isLoggedIn }) {
           </CloseNavBtn>
         </MobileLinksGroup>
       </>
-    );
+    )
   } else {
     return (
       <>
@@ -93,7 +93,7 @@ function MobileNav({ isLoggedIn }) {
           <NavMobileElement>
             <Link
               onClick={() => toggleMobileNav(!isMobileNavOpen)}
-              style={{ textDecoration: "none", color: "#fff" }}
+              style={{ textDecoration: 'none', color: '#fff' }}
               to="/"
             >
               <Icon className="fas fa-home" />
@@ -106,7 +106,7 @@ function MobileNav({ isLoggedIn }) {
           </CloseNavBtn>
         </MobileLinksGroup>
       </>
-    );
+    )
   }
 }
 
@@ -120,13 +120,13 @@ function Navigation({ isLoggedIn }) {
         <DesktopNav isLoggedIn={isLoggedIn} />
       )}
     </Nav>
-  );
+  )
 }
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.auth.isLoggedIn,
-  };
-};
+    isLoggedIn: state.auth.isLoggedIn
+  }
+}
 
-export default connect(mapStateToProps, {})(Navigation);
+export default connect(mapStateToProps, {})(Navigation)

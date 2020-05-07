@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react'
+import styled from 'styled-components'
 
 const DeleteIcon = styled.span`
   opacity: ${(props) => (props.isHovered ? 1 : 0)};
   transition: all 0.2s;
   margin-left: 2px;
   cursor: pointer;
-`;
+`
 
 export default function TagList({ tags, setTags, size = 'medium' }) {
   return (
@@ -25,11 +25,11 @@ export default function TagList({ tags, setTags, size = 'medium' }) {
         ))}
       </ul>
     </>
-  );
+  )
 }
 
 const Tag = ({ tag, setTags, tags, size }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false)
 
   return (
     <li
@@ -49,12 +49,12 @@ const Tag = ({ tag, setTags, tags, size }) => {
       <DeleteIcon
         isHovered={isHovered}
         onClick={() => {
-          const newTags = tags.filter((el) => el !== tag);
-          setTags(newTags);
+          const newTags = tags.filter((el) => el !== tag)
+          setTags(newTags)
         }}
       >
         <span className="fa fa-times fa-sm" />
       </DeleteIcon>
     </li>
-  );
-};
+  )
+}

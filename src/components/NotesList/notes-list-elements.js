@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-`;
+`
 // position: relative;
 
 // SINGLE NOTE
@@ -11,14 +11,14 @@ export const Container = styled.div`
 export const TextNote = styled.p`
   word-break: break-word;
   white-space: pre-line;
-`;
+`
 
 export const CheckListItem = styled.li`
   list-style: none;
   display: flex;
   align-items: center;
   margin-bottom: 5px;
-`;
+`
 
 export const NoteContainer = styled.div`
   border: 1px solid lightgrey;
@@ -34,7 +34,7 @@ export const NoteContainer = styled.div`
   &:hover {
     cursor: default;
   }
-`;
+`
 
 export const Title = styled.h4`
   margin-bottom: 5px;
@@ -42,12 +42,12 @@ export const Title = styled.h4`
   font-weight: 300;
   display: flex;
   justify-content: space-between;
-`;
+`
 
 export const NoteContent = styled.div`
   padding-left: 15px;
   padding-right: 15px;
-`;
+`
 
 /// COLUMN
 
@@ -57,9 +57,9 @@ export const ColumnContainer = styled.div`
   width: 220px;
   display: flex;
   flex-direction: column;
-`;
+`
 export const TaskList = styled.div`
   transition: background-color 0.2s ease;
   flex-grow: 1;
   min-height: 100px;
-`;
+`

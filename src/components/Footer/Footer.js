@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react'
+import styled from 'styled-components'
 
 const FooterContainer = styled.footer`
   height: 0vh;
@@ -14,10 +14,10 @@ const FooterContainer = styled.footer`
     line-height: 50px;
     background-color: #ffffff;
   }
-`;
+`
 
 function Footer() {
-  return <FooterContainer></FooterContainer>;
+  return <FooterContainer></FooterContainer>
 }
 
-export default Footer;
+export default Footer
